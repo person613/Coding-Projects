@@ -1,3 +1,4 @@
+
 def base64(message):
     asciiencoding = [['00100000', ' '],
 ['00100001', '!'],
@@ -158,22 +159,39 @@ def base64(message):
 ['111101','9'],
 ['111110','+'],
 ['111111','/']]
-    binarymessage = ""
-    binary = ""
-    base64message = ""
-    base64length = 0
-    for x in range(len(message)):
-        for y in range(len(asciiencoding)):
-            if message[x] == asciiencoding[y][1]:
-                binarymessage += str(asciiencoding[y][0]) + " "
-                binary += str(asciiencoding[y][0])
-    print("Binary Encoding: " + binarymessage)
-    if len(binary) % 6 != 0:
-        binary += ((len(binary) % 6) * "0")
-    for i in range(int(len(binary)/6)):
-        for m in range(len(base64encoding)):
-            if binary[0:6] == base64encoding[m][0]:
-                base64message += base64encoding[m][1]
-                binary = binary[6:]
-    print("Base 64: " + base64message)
-base64(input("What do you want to encode into Base 64? "))
+    eord = input("Are you encoding or decoding? (E/D) ")
+    if eord == "E":
+        binarymessage = ""
+        binary = ""
+        base64message = ""
+        base64length = 0
+        for x in range(len(message)):
+            for y in range(len(asciiencoding)):
+                if message[x] == asciiencoding[y][1]:
+                    binarymessage += str(asciiencoding[y][0]) + " "
+                    binary += str(asciiencoding[y][0])
+        print("Binary Encoding: " + binarymessage)
+        if len(binary) % 6 != 0:
+            binary += ((len(binary) % 6) * "0")
+        for i in range(int(len(binary)/6)):
+            for m in range(len(base64encoding)):
+                if binary[0:6] == base64encoding[m][0]:
+                    base64message += base64encoding[m][1]
+                    binary = binary[6:]
+        print("Base 64: " + base64message)
+    elif eord == "D":
+        binarymessage = ""
+        ptmessage = ""
+        for x in range(len(message)):
+            for y in range(len(base64encoding)):
+                if message[x] == base64encoding[y][1]:
+                    binarymessage += str(base64encoding[y][0])
+        if (len(binarymessage))%6 != 0:
+            binarymessage[0:len(binarymessage)-len(binarymessage)%6]
+        for n in range(int(len(binarymessage)/6)):
+            for m in range(len(asciiencoding)):
+                if binarymessage[0:8] == asciiencoding[m][0]:
+                    ptmessage += asciiencoding[m][1]
+                    binarymessage = binarymessage[8:]
+        print("Plaintext Message: " + ptmessage)
+base64(input("What do you want to encode/decode into Base 64? "))
