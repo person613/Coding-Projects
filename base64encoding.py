@@ -165,15 +165,15 @@ def base64(message):
     for x in range(len(message)):
         for y in range(len(asciiencoding)):
             if message[x] == asciiencoding[y][1]:
-                binarymessage = binarymessage + str(asciiencoding[y][0]) + " "
-                binary = binary + str(asciiencoding[y][0])
+                binarymessage += str(asciiencoding[y][0]) + " "
+                binary += str(asciiencoding[y][0])
     print("Binary Encoding: " + binarymessage)
     if len(binary) % 6 != 0:
-        binary = binary + ((len(binary) % 6) * "0")
+        binary += ((len(binary) % 6) * "0")
     for i in range(int(len(binary)/6)):
         for m in range(len(base64encoding)):
             if binary[0:6] == base64encoding[m][0]:
-                base64message = base64message + base64encoding[m][1]
+                base64message += base64encoding[m][1]
                 binary = binary[6:]
     print("Base 64: " + base64message)
 base64(input("What do you want to encode into Base 64? "))
